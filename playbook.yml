@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+become: yes
+become_method: sudo
+tasks: 
+  - name: update system
+    apt:
+    name: '*'
+    state: latest
+    update_cache: yes
+    only_upgrade: yes
+    register: apt_update_status
+    tags:
+    - update
+  - name: install nginx server
+    apt:
+    name: nginx
+    state: latest
+    tags:
+    - nginx
+  - name: install openVPN
+    apt:
+    name: vpn
+    state: present
+    tags:
+    - vpn
